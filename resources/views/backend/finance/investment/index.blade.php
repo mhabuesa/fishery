@@ -30,13 +30,25 @@
                                     <tr>
                                         <th class="text-center">{{ __('messages.sl') }}</th>
                                         <th>{{ __('messages.name') }}</th>
-                                        <th>Location</th>
+                                        <th>Amount</th>
+                                        <th>Date</th>
                                         <th>{{ __('messages.action') }}</th>
                                     </tr>
                                 </thead>
 
                                 <tbody>
-                                   
+                                    @foreach($investments as $investment)
+                                        <tr>
+                                            <td class="text-center">{{ $loop->iteration }}</td>
+                                            <td>{{ $investment->partner->name }}</td>
+                                            <td>{{ $investment->amount }}</td>
+                                            <td>{{ $investment->transaction_date }}</td>
+                                            <td>
+                                                <a href="{{ route('finance.investment.edit', $investment->id) }}" class="btn btn-sm btn-alt-primary"><i class="fa fa-edit"></i></a>
+                                                <button data-id="{{ $investment->id }}" onclick="deleteInvestment(this)" class="btn btn-sm btn-alt-danger"><i class="fa fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
 
                             </table>
@@ -60,11 +72,11 @@
 
 
         <script>
-        function deletePond(button) {
+        function deleteInvestment(button) {
             const id = $(button).data('id');
             Swal.fire({
                 title: "Are you sure?",
-                text: "This Pond Delete Permanently.",
+                text: "This Investment Delete Permanently.",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#f97316",
@@ -72,7 +84,7 @@
                 confirmButtonText: "Yes, Delete!"
             }).then((result) => {
                 if (result.isConfirmed) {
-                    let url = "{{ route('pond.destroy', ':id') }}";
+                    let url = "{{ route('finance.investment.destroy', ':id') }}";
                     url = url.replace(':id', id);
                     let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 

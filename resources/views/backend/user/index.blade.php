@@ -47,17 +47,17 @@
                                             <td class="text-center">
                                                 <div class="d-flex">
                                                     <a href="{{ route('partner.show', $user->id) }}"
-                                                        class="border-0 btn btn-sm">
-                                                        <i class="fa fa-eye text-success fa-xl"></i>
+                                                        class="btn btn-sm btn-alt-success mx-1">
+                                                        <i class="fa fa-eye text-success"></i>
                                                     </a>
                                                     <a href="{{ route('partner.edit', $user->id) }}"
-                                                        class="border-0 btn btn-sm">
-                                                        <i class="fa fa-pencil text-secondary fa-xl"></i>
+                                                        class="btn btn-sm btn-alt-primary">
+                                                        <i class="fa fa-edit text-primary"></i>
                                                     </a>
                                                     @if (auth()->user()->id != $user->id)
-                                                        <button type="button" class="border-0 btn btn-sm"
+                                                        <button type="button" class="btn btn-sm btn-alt-danger mx-1"
                                                             onclick="deleteUser(this)" data-id="{{ $user->id }}"><i
-                                                                class="fa fa-trash text-danger fa-xl"></i></button>
+                                                                class="fa fa-trash text-danger"></i></button>
                                                     @endif
                                                 </div>
                                             </td>

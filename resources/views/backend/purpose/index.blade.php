@@ -37,12 +37,12 @@
                                             <td class="text-center">
                                                 <div class="d-flex">
                                                     <a href="{{ route('purpose.edit', $purpose->id) }}"
-                                                        class="border-0 btn btn-sm">
-                                                        <i class="fa fa-pencil text-secondary fa-xl"></i>
+                                                        class="btn btn-sm btn-alt-success">
+                                                        <i class="fa fa-edit text-secondary"></i>
                                                     </a>
-                                                        <button type="button" class="border-0 btn btn-sm"
+                                                        <button type="button" class="btn btn-sm btn-alt-danger ms-2"
                                                             onclick="deletePurpose(this)" data-id="{{ $purpose->id }}"><i
-                                                                class="fa fa-trash text-danger fa-xl"></i></button>
+                                                                class="fa fa-trash text-danger"></i></button>
                                                 </div>
                                             </td>
                                         </tr>

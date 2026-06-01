@@ -49,7 +49,7 @@ class UserController extends Controller
             'image' => $image_name ?? '',
         ]);
 
-        return redirect()->route('user.index')->with('success', 'User Created Successfully');
+        return redirect()->route('partner.index')->with('success', 'User Created Successfully');
     }
 
     public function show($id)
@@ -101,7 +101,7 @@ class UserController extends Controller
         // update
         $user->update($data);
 
-        return redirect()->route('user.index')->with('success', 'User Updated Successfully');
+        return redirect()->route('partner.index')->with('success', 'User Updated Successfully');
     }
 
 

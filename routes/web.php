@@ -63,7 +63,18 @@ Route::middleware(['auth', SetLocale::class])->group(function () {
     Route::controller(FinanceController::class)->name('finance.')->prefix('finance')->group(function () {
         Route::get('/investment', 'investment_index')->name('investment.index');
         Route::get('/investment/create', 'investment_create')->name('investment.create');
+        Route::post('/investment', 'investment_store')->name('investment.store');
+        Route::get('/investment/edit/{id}', 'investment_edit')->name('investment.edit');
+        Route::post('/investment/update/{id}', 'investment_update')->name('investment.update');
+        Route::delete('/investment/destroy/{id}', 'investment_destroy')->name('investment.destroy');
+        
+        // Expense Routes
         Route::get('/expense', 'expense_index')->name('expense.index');
+        Route::get('/expense/create', 'expense_create')->name('expense.create');
+        Route::post('/expense', 'expense_store')->name('expense.store');
+        Route::get('/expense/edit/{id}', 'expense_edit')->name('expense.edit');
+        Route::post('/expense/update/{id}', 'expense_update')->name('expense.update');
+        Route::delete('/expense/destroy/{id}', 'expense_destroy')->name('expense.destroy');
     });
 
     // Extra Routes of resource controllers can be defined here
