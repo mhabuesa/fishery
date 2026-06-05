@@ -16,4 +16,17 @@ class Pond extends Model
         'status',
         'note',
     ];
+
+
+    public function incomeTransactions()
+    {
+        return $this->hasMany(Transaction::class)
+            ->where('type', 'income');
+    }
+
+    public function expenseTransactions()
+    {
+        return $this->hasMany(Transaction::class)
+            ->where('type', 'expense');
+    }
 }

@@ -18,14 +18,15 @@
                             </div>
                             <div class="col-lg-6 text-center text-lg-end">
                                 <div class="block-options space-x-1 md_mt-2 p-0">
-                                    <a href="{{route('finance.expense.create')}}" class="btn btn-primary btn-sm"> <i class="fa fa-plus"></i> Add Expense</a>
+                                    <a href="{{ route('finance.expense.create') }}" class="btn btn-primary btn-sm"> <i
+                                            class="fa fa-plus"></i> Add Expense</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="block-content block-content-full overflow-x-auto">
                         <div class="position-relative">
-                            <table class="table table-bordered table-vcenter" id="pondTable">
+                            <table class="table table-bordered table-vcenter" id="expenseTable">
                                 <thead>
                                     <tr>
                                         <th class="text-center">{{ __('messages.sl') }}</th>
@@ -37,15 +38,17 @@
                                 </thead>
 
                                 <tbody>
-                                    @foreach($expenses as $expense)
+                                    @foreach ($expenses as $expense)
                                         <tr>
                                             <td class="text-center">{{ $loop->iteration }}</td>
-                                            <td>{{ $expense->purpose->purpose }}</td>
+                                            <td>{{ $expense->purpose->name }}</td>
                                             <td>{{ $expense->amount }}</td>
                                             <td>{{ $expense->transaction_date }}</td>
                                             <td>
-                                                <a href="{{ route('finance.expense.edit', $expense->id) }}" class="btn btn-sm btn-alt-primary"><i class="fa fa-edit"></i></a>
-                                                <button data-id="{{ $expense->id }}" onclick="deleteExpense(this)" class="btn btn-sm btn-alt-danger"><i class="fa fa-trash"></i></button>
+                                                <a href="{{ route('finance.expense.edit', $expense->id) }}"
+                                                    class="btn btn-sm btn-alt-primary"><i class="fa fa-edit"></i></a>
+                                                <button data-id="{{ $expense->id }}" onclick="deleteExpense(this)"
+                                                    class="btn btn-sm btn-alt-danger"><i class="fa fa-trash"></i></button>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -70,8 +73,11 @@
     <script src="{{ asset('assets') }}/js/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
     <script src="{{ asset('assets') }}/js/plugins/datatables-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
 
+    <script>
+        $('#expenseTable').DataTable();
+    </script>
 
-        <script>
+    <script>
         function deleteExpense(button) {
             const id = $(button).data('id');
             Swal.fire({

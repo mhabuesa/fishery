@@ -80,9 +80,9 @@
                     </a>
                     <ul class="nav-main-submenu">
                         <li class="nav-main-item">
-                            <a class="nav-main-link {{ request()->routeIs('finance.investment.*') ? 'active' : '' }}" href="{{route('finance.investment.index')}}">
+                            <a class="nav-main-link {{ request()->routeIs('finance.income.*') ? 'active' : '' }}" href="{{route('finance.income.index')}}">
                                 <span class="nav-main-link-name">
-                                    <i class="fas fa-chart-line me-2"></i> Investment
+                                    <i class="fas fa-money-bill-1 me-2"></i> Income
                                 </span>
                             </a>
                         </li>
@@ -90,6 +90,13 @@
                             <a class="nav-main-link {{ request()->routeIs('finance.expense.*') ? 'active' : '' }}" href="{{route('finance.expense.index')}}">
                                 <span class="nav-main-link-name">
                                     <i class="fas fa-money-bill me-2"></i> Expense
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-main-item">
+                            <a class="nav-main-link {{ request()->routeIs('finance.investment.*') ? 'active' : '' }}" href="{{route('finance.investment.index')}}">
+                                <span class="nav-main-link-name">
+                                    <i class="fas fa-chart-line me-2"></i> Investment
                                 </span>
                             </a>
                         </li>

@@ -42,6 +42,7 @@ Route::middleware(['auth', SetLocale::class])->group(function () {
     // Purpose Routes
     Route::controller(PurposeController::class)->name('purpose.')->prefix('purpose')->group(function () {
         Route::get('/', 'index')->name('index');
+        Route::post('/check-slug', 'checkSlug')->name('check-slug');
         Route::post('/store', 'store')->name('store');
         Route::get('/edit/{id}', 'edit')->name('edit');
         Route::post('/update/{id}', 'update')->name('update');
@@ -67,6 +68,14 @@ Route::middleware(['auth', SetLocale::class])->group(function () {
         Route::get('/investment/edit/{id}', 'investment_edit')->name('investment.edit');
         Route::post('/investment/update/{id}', 'investment_update')->name('investment.update');
         Route::delete('/investment/destroy/{id}', 'investment_destroy')->name('investment.destroy');
+        
+        // Income Routes
+        Route::get('/income', 'income_index')->name('income.index');
+        Route::get('/income/create', 'income_create')->name('income.create');
+        Route::post('/income', 'income_store')->name('income.store');
+        Route::get('/income/edit/{id}', 'income_edit')->name('income.edit');
+        Route::post('/income/update/{id}', 'income_update')->name('income.update');
+        Route::delete('/income/destroy/{id}', 'income_destroy')->name('income.destroy');
         
         // Expense Routes
         Route::get('/expense', 'expense_index')->name('expense.index');

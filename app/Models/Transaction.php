@@ -16,4 +16,10 @@ class Transaction extends Model
     {
         return $this->belongsTo(Purpose::class, 'purpose_id');
     }
+
+    public function investments()
+    {
+        return $this->hasMany(Transaction::class)
+            ->where('type', 'investment');
+    }
 }

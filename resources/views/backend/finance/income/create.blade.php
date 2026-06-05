@@ -1,5 +1,5 @@
 @extends('backend.layouts.app')
-@section('title', 'Add  Expense')
+@section('title', 'Add Income')
 @push('style')
     <link rel="stylesheet" href="{{ asset('assets') }}/js/plugins/magnific-popup/magnific-popup.css">
 @endpush
@@ -10,12 +10,12 @@
             <div class="block block-rounded">
                 <div class="block-header block-header-default">
                     <h3 class="block-title">
-                        {{ __('messages.add_expense') }}
+                        {{ __('messages.add_income') }}
                     </h3>
-                    <a href="{{ route('finance.expense.index') }}" class="btn btn-alt-primary btn-sm"> <i class="fas fa-arrow-left"></i> Back </a>
+                    <a href="{{ route('finance.income.index') }}" class="btn btn-alt-primary btn-sm"> <i class="fas fa-arrow-left"></i> Back </a>
                 </div>
                 <div class="block-content">
-                    <form action="{{ route('finance.expense.store') }}" method="POST">
+                    <form action="{{ route('finance.income.store') }}" method="POST">
                         @csrf
                         <div class="mb-3">
                             <label for="purpose" class="form-label">Purpose <small class="text-danger">*</small></label>
@@ -79,23 +79,3 @@
     </div>
 
 @endsection
-@push('footer_scripts')
-    <script src="{{ asset('assets') }}/js/plugins/magnific-popup/jquery.magnific-popup.min.js"></script>
-    <script>
-        One.helpersOnLoad(['jq-magnific-popup']);
-
-        $(document).on('click', '.toggle-password', function() {
-
-            let input = $('#password');
-
-            if (input.attr('type') === 'password') {
-                input.attr('type', 'text');
-                $(this).removeClass('fa-eye').addClass('fa-eye-slash');
-            } else {
-                input.attr('type', 'password');
-                $(this).removeClass('fa-eye-slash').addClass('fa-eye');
-            }
-
-        });
-    </script>
-@endpush

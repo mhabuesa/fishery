@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('partner_id')->nullable();
             $table->string('type')->nullable();
             $table->unsignedBigInteger('purpose_id')->nullable();
-            $table->decimal('amount', 15, 2);
+            $table->decimal('amount', 15, 0);
             $table->date('transaction_date')->nullable();
             $table->text('note')->nullable();
             $table->timestamps();

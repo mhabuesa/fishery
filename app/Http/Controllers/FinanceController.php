@@ -14,8 +14,10 @@ class FinanceController extends Controller
     public function investment_index()
     {
         // Logic to fetch and display investment
+
+        $partners = User::has('investments')->get();
         $investments = Transaction::where('type', 'investment')->latest()->get();
-        return view('backend.finance.investment.index', compact('investments'));
+        return view('backend.finance.investment.index', compact('investments', 'partners'));
     }
     public function investment_create()
     {
@@ -87,6 +89,86 @@ class FinanceController extends Controller
         return response()->json(['success' => true, 'message' => 'Investment deleted successfully'], 200);
     }
 
+    public function income_index()
+    {
+        $incomes = Transaction::where('type', 'income')->latest()->get();
+        return view('backend.finance.income.index', compact('incomes'));
+    }
+
+
+    public function income_create()
+    {
+        $purposes = Purpose::all();
+        $ponds = Pond::all();
+        return view('backend.finance.income.create', compact('purposes', 'ponds'));
+    }
+
+    public function income_store(Request $request)
+    {
+        $request->validate([
+            'purpose' => 'required',
+            'amount' => 'required|numeric|min:0',
+            'transaction_date' => 'required|date',
+        ]);
+
+        Transaction::create([
+            'pond_id' => $request->pond,
+            'type' => 'income',
+            'purpose_id' => $request->purpose,
+            'amount' => $request->amount,
+            'transaction_date' => $request->transaction_date,
+            'note' => $request->note,
+        ]);
+
+        return redirect()->route('finance.income.index')->with('success', 'Income created successfully.');
+    }
+
+    public function income_edit($id)
+    {
+        $income  = Transaction::findOrFail($id);
+        $purposes = Purpose::all();
+        $ponds = Pond::all();
+        return view('backend.finance.income.edit', compact('income', 'purposes', 'ponds'));
+    }
+
+    public function income_update(Request $request, $id)
+    {
+        $request->validate([
+            'purpose' => 'required',
+            'amount' => 'required|numeric|min:0',
+            'transaction_date' => 'required|date',
+        ]);
+
+        $income= Transaction::findOrFail($id);
+        $income->update([
+            'purpose_id' => $request->purpose,
+            'pond_id' => $request->pond,
+            'amount' => $request->amount,
+            'transaction_date' => $request->transaction_date,
+            'note' => $request->note,
+        ]);
+
+        return redirect()->route('finance.income.index')->with('success', 'Income updated successfully.');
+    }
+
+    public function income_destroy($id)
+    {
+        $income = Transaction::findOrFail($id);
+
+        try {
+            $income->delete();
+        } catch (\Exception $e) {
+            Log::error($e);
+            return error($e->getMessage());
+        }
+
+        return response()->json(['success' => true, 'message' => 'Income deleted successfully'], 200);
+    }
+
+
+    
+
+    //Expense Methods
     public function expense_index()
     {
         $expenses = Transaction::where('type', 'expense')->latest()->get();

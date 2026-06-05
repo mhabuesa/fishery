@@ -24,7 +24,8 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center">{{ __('messages.sl') }}</th>
-                                        <th>{{ __('messages.purpose') }}</th>
+                                        <th>{{ __('messages.name') }}</th>
+                                        <th>{{ __('messages.slug') }}</th>
                                         <th>{{ __('messages.action') }}</th>
                                     </tr>
                                 </thead>
@@ -33,17 +34,23 @@
                                     @foreach ($purposes as $key => $purpose)
                                         <tr>
                                             <td class="text-center fs-sm">{{ $key + 1 }}</td>
-                                            <td class="fw-semibold fs-sm">{{ $purpose->purpose }}</td>
+                                            <td class="fw-semibold fs-sm">{{ $purpose->name }}</td>
+                                            <td class="fw-semibold fs-sm">{{ $purpose->slug }}</td>
                                             <td class="text-center">
-                                                <div class="d-flex">
-                                                    <a href="{{ route('purpose.edit', $purpose->id) }}"
-                                                        class="btn btn-sm btn-alt-success">
-                                                        <i class="fa fa-edit text-secondary"></i>
-                                                    </a>
+                                                @if ($purpose->is_system == 0)
+                                                    <div class="d-flex">
+                                                        <a href="{{ route('purpose.edit', $purpose->id) }}"
+                                                            class="btn btn-sm btn-alt-success">
+                                                            <i class="fa fa-edit text-secondary"></i>
+                                                        </a>
                                                         <button type="button" class="btn btn-sm btn-alt-danger ms-2"
                                                             onclick="deletePurpose(this)" data-id="{{ $purpose->id }}"><i
                                                                 class="fa fa-trash text-danger"></i></button>
-                                                </div>
+                                                    </div>
+                                                @else
+                                                    <span class="text-muted">Null</span>
+                                                @endif
+
                                             </td>
                                         </tr>
                                     @endforeach
@@ -69,15 +76,23 @@
                             <form action="{{ route('purpose.store') }}" method="POST">
                                 @csrf
                                 <div class="mb-3">
-                                    <label for="purpose" class="form-label">Purpose <small
+                                    <label for="name" class="form-label">Name <small
                                             class="text-danger">*</small></label>
-                                    <input type="text" id="purpose" name="purpose" class="form-control"
-                                        value="{{ old('purpose') }}" placeholder="Enter Purpose">
-                                    @error('purpose')
+                                    <input type="text" id="name" name="name" class="form-control"
+                                        value="{{ old('name') }}" placeholder="Enter Name">
+                                    @error('name')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
-                               
+                                <div class="mb-3">
+                                    <label for="slug" class="form-label">Slug <small
+                                            class="text-danger">*</small></label>
+                                    <input type="text" id="slug" name="slug" class="form-control"
+                                        value="{{ old('slug') }}" placeholder="Enter Slug">
+                                    @error('slug')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
                                 <div class="mt-2 text-end">
                                     <button class="btn btn-primary">Submit</button>
                                 </div>
@@ -149,5 +164,49 @@
                 }
             });
         }
+    </script>
+
+    <script>
+        $(document).ready(function() {
+
+            let ajaxRequest;
+
+            $('#name').on('keyup', function() {
+
+                let name = $(this).val();
+
+                if (!name.trim()) {
+                    $('#slug').val('');
+                    return;
+                }
+
+                // Frontend slug generate
+                let slug = name
+                    .toLowerCase()
+                    .trim()
+                    .replace(/[^\w\s]/g, '')
+                    .replace(/\s+/g, '_');
+
+                $('#slug').val(slug);
+
+                if (ajaxRequest) {
+                    ajaxRequest.abort();
+                }
+
+                ajaxRequest = $.ajax({
+                    url: "{{ route('purpose.check-slug') }}",
+                    type: "POST",
+                    data: {
+                        slug: slug,
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function(response) {
+                        $('#slug').val(response.slug);
+                    }
+                });
+
+            });
+
+        });
     </script>
 @endpush

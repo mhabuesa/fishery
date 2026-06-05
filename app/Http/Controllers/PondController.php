@@ -13,7 +13,7 @@ class PondController extends Controller
         $ponds = Pond::all();
         return view("backend.pond.index", compact("ponds"));
     }
-    
+
     public function create()
     {
         return view("backend.pond.create");
@@ -34,13 +34,25 @@ class PondController extends Controller
 
         Pond::create($request->all());
 
-        return redirect()->back()->with('success', 'Pond added successfully.');
+        return redirect()->route('pond.index')->with('success', 'Pond added successfully.');
     }
 
     public function show($id)
     {
-        $pond = Pond::findOrFail($id);
-        return view("backend.pond.show", compact("pond"));
+        $pond = Pond::query()
+            ->withSum('incomeTransactions', 'amount')
+            ->withSum('expenseTransactions', 'amount')
+            ->findOrFail($id);
+
+        $income = $pond->income_transactions_sum_amount;
+        $expense = $pond->expense_transactions_sum_amount;
+
+        if($income < $expense) {
+            $profit = 0;
+        }else {
+            $profit = $income - $expense;
+        }
+        return view("backend.pond.show", compact("pond", "income", "expense", "profit"));
     }
 
     public function edit(Request $request, $id)

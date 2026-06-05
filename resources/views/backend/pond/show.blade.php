@@ -19,107 +19,92 @@
                     </div>
                 </div>
                 <div class="block-content">
-                    <div class="row mb-3">
-                        <div class="col-lg-4">
-                            <label class="form-label fw-semibold">Pond Name:</label>
-                        </div>
-                        <div class="col-lg-8">
-                            <p class="form-control-plaintext">{{ $pond->name }}</p>
-                        </div>
-                    </div>
 
+                    <table class="table table-bordered table-striped table-vcenter js-dataTable-full-pagination">
+                        <thead>
+                            <tr>
+                                <th class="text-center" style="width: 30%;">Field</th>
+                                <th class="text-center">Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th class="text-center" style="width: 30%;">Pond Name</th>
+                                <td class="text-center">{{ $pond->name }}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-center" style="width: 30%;">Location</th>
+                                <td class="text-center">{{ $pond->location ?? 'N/A' }}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-center" style="width: 30%;">Size</th>
+                                <td class="text-center">{{ $pond->size ?? 'N/A' }}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-center" style="width: 30%;">Lease Amount</th>
+                                <td class="text-center">{{ $pond->lease_amount ?? 'N/A' }}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-center" style="width: 30%;">Start Date</th>
+                                <td class="text-center">{{ $pond->start_date ?? 'N/A' }}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-center" style="width: 30%;">End Date</th>
+                                <td class="text-center">{{ $pond->end_date ?? 'N/A' }}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-center" style="width: 30%;">Note</th>
+                                <td class="text-center">{{ $pond->note ?? 'N/A' }}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-center" style="width: 30%;">Created At</th>
+                                <td class="text-center">{{ $pond->created_at->format('d-m-Y H:i') }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                     <div class="row mb-3">
-                        <div class="col-lg-4">
-                            <label class="form-label fw-semibold">Location:</label>
+                        <div class="col-xl-4 mb-4">
+                            <div class="block block-rounded d-flex flex-column h-100 mb-0 border">
+                                <div
+                                    class="block-content block-content-full flex-grow-1 d-flex justify-content-between align-items-center">
+                                    <dl class="mb-0">
+                                        <dt class="fs-3 fw-bold">{{ $income ?? 0 }}</dt>
+                                        <dd class="fs-sm fw-medium fs-sm fw-medium text-muted mb-0">Income</dd>
+                                    </dl>
+                                    <div class="item item-rounded-lg bg-body-light">
+                                        <i class="fa fa-plus fs-3 text-primary"></i>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-lg-8">
-                            <p class="form-control-plaintext">{{ $pond->location ?? 'N/A' }}</p>
+                        <div class="col-xl-4 mb-4">
+                            <div class="block block-rounded d-flex flex-column h-100 mb-0 border">
+                                <div
+                                    class="block-content block-content-full flex-grow-1 d-flex justify-content-between align-items-center">
+                                    <dl class="mb-0">
+                                        <dt class="fs-3 fw-bold">{{ $expense ?? 0 }}</dt>
+                                        <dd class="fs-sm fw-medium fs-sm fw-medium text-muted mb-0">Expenses</dd>
+                                    </dl>
+                                    <div class="item item-rounded-lg bg-body-light">
+                                        <i class="fa fa-minus fs-3 text-primary"></i>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-lg-4">
-                            <label class="form-label fw-semibold">Size:</label>
+                        <div class="col-xl-4 mb-4">
+                            <div class="block block-rounded d-flex flex-column h-100 mb-0 border">
+                                <div
+                                    class="block-content block-content-full flex-grow-1 d-flex justify-content-between align-items-center">
+                                    <dl class="mb-0">
+                                        <dt class="fs-3 fw-bold">{{ $profit }}</dt>
+                                        <dd class="fs-sm fw-medium fs-sm fw-medium text-muted mb-0">Balance</dd>
+                                    </dl>
+                                    <div class="item item-rounded-lg bg-body-light">
+                                        <i class="fa fa-building-columns fs-3 text-primary"></i>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-lg-8">
-                            <p class="form-control-plaintext">{{ $pond->size ?? 'N/A' }}</p>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-lg-4">
-                            <label class="form-label fw-semibold">Lease Amount:</label>
-                        </div>
-                        <div class="col-lg-8">
-                            <p class="form-control-plaintext">{{ $pond->lease_amount ?? 'N/A' }}</p>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-lg-4">
-                            <label class="form-label fw-semibold">Start Date:</label>
-                        </div>
-                        <div class="col-lg-8">
-                            <p class="form-control-plaintext">{{ $pond->start_date ?? 'N/A' }}</p>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-lg-4">
-                            <label class="form-label fw-semibold">End Date:</label>
-                        </div>
-                        <div class="col-lg-8">
-                            <p class="form-control-plaintext">{{ $pond->end_date ?? 'N/A' }}</p>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-lg-4">
-                            <label class="form-label fw-semibold">Status:</label>
-                        </div>
-                        <div class="col-lg-8">
-                            <p class="form-control-plaintext">
-                                <span class="badge {{ $pond->status == '1' ? 'bg-success' : 'bg-danger' }}">
-                                    {{ $pond->status == '1' ? 'Active' : 'Inactive' }}
-                                </span>
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-lg-4">
-                            <label class="form-label fw-semibold">Note:</label>
-                        </div>
-                        <div class="col-lg-8">
-                            <p class="form-control-plaintext">{{ $pond->note ?? 'N/A' }}</p>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-lg-4">
-                            <label class="form-label fw-semibold">Created At:</label>
-                        </div>
-                        <div class="col-lg-8">
-                            <p class="form-control-plaintext">{{ $pond->created_at->format('d-m-Y H:i') }}</p>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-lg-4">
-                            <label class="form-label fw-semibold">Updated At:</label>
-                        </div>
-                        <div class="col-lg-8">
-                            <p class="form-control-plaintext">{{ $pond->updated_at->format('d-m-Y H:i') }}</p>
-                        </div>
-                    </div>
-
-                    <div class="mt-5 text-end">
-                        <a href="{{ route('pond.edit', $pond->id) }}" class="btn btn-primary">
-                            <i class="fa fa-pencil"></i> Edit
-                        </a>
-                        <button type="button" class="border-0 btn btn-sm" onclick="deletePond(this)"
-                            data-id="{{ $pond->id }}" title="Delete"><i
-                                class="fa fa-trash text-danger fa-xl"></i></button>
                     </div>
                 </div>
             </div>

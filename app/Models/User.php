@@ -41,4 +41,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function investments()
+    {
+        return $this->hasMany(Transaction::class, 'partner_id')->where('type', 'investment');
+    }
 }
